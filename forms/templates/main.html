@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+</head>
+<body>
+    <h1>Welcome to the Application</h1>
+    <nav>
+        <ul>
+            <li><a href="/form">Submit Form</a></li>
+            <li><a href="/login">Admin Login</a></li>
+            {% if "admin" in session %}
+                <li><a href="/submissions">View Submissions</a></li>
+                <li><a href="/logout">Logout</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</body>
+</html>
