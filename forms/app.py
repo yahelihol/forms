@@ -119,25 +119,38 @@ def login():
 @app.route("/submissions")
 def view_submissions():
     if "admin" not in session:
-        flash("Unauthorized access. Please log in.")
+        flash("Unauthorized access. Please log in.", "error")
         return redirect(url_for("login"))
+
     data = []
+    csv_file_path = "submissions.csv"
+
+    if not os.path.exists(csv_file_path):
+        flash("No submissions found.", "warning")
+        return redirect(url_for("form"))
+
     try:
-        with open("submissions.csv", mode="r") as file:
+        with open(csv_file_path, mode="r") as file:
             reader = csv.reader(file)
             data = list(reader)
-    except FileNotFoundError:
-        flash("No submissions found.")
+            if not data:
+                flash("No data available in submissions.", "info")
+                return redirect(url_for("form"))
+    except Exception as e:
+        app.logger.error(f"Error reading submissions: {e}")
+        flash("An error occurred while retrieving submissions.", "error")
         return redirect(url_for("form"))
+
     return render_template("submissions.html", submissions=data)
 
 
 # Logout route
 @app.route("/logout")
 def logout():
-    session.pop("admin", None)
-    flash("You have been logged out.")
+    session.pop("admin", None)  # Remove admin session
+    flash("You have been logged out.", "info")  # Show message only on logout
     return redirect(url_for("login"))
+
 
 
 if __name__ == "__main__":

@@ -3,92 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the Application</title>
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/static/style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+        /* Additional styles specific to the main page */
+        .main-container {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-        }
-
-        header {
-            background-color: #007BFF;
-            color: white;
-            padding: 20px;
-            width: 100%;
+            min-height: 100vh;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-        }
-
-        nav {
-            margin-top: 30px;
+        .card-container {
             display: flex;
+            gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            max-width: 800px;
+            margin: 20px auto 0;
         }
-
-        nav a {
-            text-decoration: none;
-            color: white;
-            background-color: #007BFF;
-            padding: 15px 30px;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        nav a:hover {
-            background-color: #0056b3;
-        }
-
-        footer {
-            margin-top: 50px;
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            width: 100%;
+        .card {
+            flex: 1 1 calc(33% - 20px); /* Adjust cards to fit evenly in a row */
+            max-width: 250px;
             text-align: center;
-            position: absolute;
-            bottom: 0;
         }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9rem;
+        @media (max-width: 768px) {
+            .card {
+                flex: 1 1 100%; /* Stack cards on smaller screens */
+            }
         }
     </style>
 </head>
 <body>
-    <header>
+    <div class="main-container">
         <h1>Welcome to the Application</h1>
-    </header>
-
-    <nav>
-        <a href="/form">Submit Form</a>
-        <a href="/login">Admin Login</a>
-        {% if "admin" in session %}
-            <a href="/submissions">View Submissions</a>
-            <a href="/logout">Logout</a>
-        {% endif %}
-        {% if "admin" not in session %}
-            <a href="/create-admin">Create Admin (Setup)</a>
-        {% endif %}
-    </nav>
-
-    <footer>
-        <p>&copy; 2025 Your Application. All rights reserved.</p>
-    </footer>
+        <p>Select an option below to proceed:</p>
+        <div class="card-container">
+            <div class="card">
+                <a href="/form">Submit a Form</a>
+            </div>
+            <div class="card">
+                <a href="/login">Admin Login</a>
+            </div>
+            {% if "admin" in session %}
+                <div class="card">
+                    <a href="/submissions">View Submissions</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
