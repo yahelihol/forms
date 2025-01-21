@@ -3,19 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+    <title>Welcome to the Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        nav {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Application</h1>
+    <header>
+        <h1>Welcome to the Application</h1>
+    </header>
+
     <nav>
-        <ul>
-            <li><a href="/form">Submit Form</a></li>
-            <li><a href="/login">Admin Login</a></li>
-            {% if "admin" in session %}
-                <li><a href="/submissions">View Submissions</a></li>
-                <li><a href="/logout">Logout</a></li>
-            {% endif %}
-        </ul>
+        <a href="/form">Submit Form</a>
+        <a href="/login">Admin Login</a>
+        {% if "admin" in session %}
+            <a href="/submissions">View Submissions</a>
+            <a href="/logout">Logout</a>
+        {% endif %}
+        {% if "admin" not in session %}
+            <a href="/create-admin">Create Admin (Setup)</a>
+        {% endif %}
     </nav>
+
+    <footer>
+        <p>&copy; 2025 Your Application. All rights reserved.</p>
+    </footer>
 </body>
 </html>
